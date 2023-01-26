@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  mysqldb:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: people_db
+      MYSQL_ROOT_PASSWORD: rlaalstn123
+    ports:
+      - 3306:3306
+
+  backend:
+    build: .
+    restart: always
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb:3306/test
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: rlaalstn123
+    ports:
+      - 8080:8080
+    depends_on:
+      - mysqldb
