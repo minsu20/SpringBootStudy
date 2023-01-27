@@ -1,7 +1,7 @@
 package com.example.demo.domain.comment.repository;
 
 import com.example.demo.domain.comment.dto.CommentDto;
-import com.example.demo.comment.dto.QCommentDto_GetResponse;
+import com.example.demo.domain.comment.dto.QCommentDto_GetResponse;
 import com.example.demo.domain.comment.entity.Comment;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -10,7 +10,7 @@ import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
 
-import static com.example.demo.comment.entity.QComment.comment;
+import static com.example.demo.domain.comment.entity.QComment.comment;
 
 public class CommentRepositoryImpl implements CommentRepositoryCustom {
     private final JPAQueryFactory queryFactory;

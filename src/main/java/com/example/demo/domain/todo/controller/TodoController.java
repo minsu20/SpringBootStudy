@@ -69,4 +69,12 @@ public class TodoController {
     public ResponseEntity<ResponseDto<PaginationDto<List<TodoDto.GetAllTodo>>>> getTodo(@PageableDefault Pageable pageable){
         return ResponseEntity.ok(ResponseDto.create(TodoConstansts.EBoardResponseMessage.GET_ALL_TODO_SUCCESS.getMessage(),this.todoService.getAll(pageable)));
     }
+
+    @ApiOperation(value="할일을 제목으로 검색", notes="할일을 제목으로 검색합니다")
+    @GetMapping("search/{title}")
+    public ResponseEntity<ResponseDto<List<TodoDto.GetAllTodo>>> getByTitle(@PathVariable String title){
+        return ResponseEntity.ok(ResponseDto.create(TodoConstansts.EBoardResponseMessage.SEARCH_BYTITLE_TODO_SUCCESS.getMessage(),this.todoService.findByTitle(title)));
+    }
+
+
 }

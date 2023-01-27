@@ -59,7 +59,6 @@ public class CommentServiceImpl implements CommentService{
         this.validateTodoById(todoId);
         Comment comment=this.validateCommentById(commentId);
         comment.setContent(updateRequest.getContent());
-        comment.setUpdatedAt(LocalDateTime.now());
         return this.commentMapper.toUpdateDto(comment);
     }
 
