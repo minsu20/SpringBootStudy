@@ -7,8 +7,6 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring", uses=CommentMapperSupport.class)
 public interface CommentMapper {
     @Mapping(target="content", source="createRequest.content")
-    @Mapping(target="createdAt", expression="java(java.time.LocalDateTime.now())")
-    @Mapping(target="updatedAt", expression="java(java.time.LocalDateTime.now())")
     Comment toEntity(CommentDto.CreateRequest createRequest);
 
     @Mapping(target="commentId", source="commentId")

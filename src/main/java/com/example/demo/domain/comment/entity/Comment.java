@@ -1,29 +1,26 @@
 package com.example.demo.domain.comment.entity;
 
 import com.example.demo.domain.todo.entity.Todo;
+import com.example.demo.global.entity.BaseTimeEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Builder
-public class Comment {
+public class Comment extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer commentId;
 
     private String content;
-
-    private LocalDateTime createdAt;
-
-    private LocalDateTime updatedAt;
 
     private boolean isDeleted;
 

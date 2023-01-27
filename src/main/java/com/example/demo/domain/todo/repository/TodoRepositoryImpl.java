@@ -1,5 +1,6 @@
 package com.example.demo.domain.todo.repository;
 
+import com.example.demo.domain.todo.dto.QTodoDto_GetAllTodo;
 import com.example.demo.domain.todo.dto.TodoDto;
 import com.example.demo.domain.todo.entity.Todo;
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -16,8 +17,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static com.example.demo.todo.entity.QTodo.todo;
-import static com.example.demo.comment.entity.QComment.comment;
+import static com.example.demo.domain.todo.entity.QTodo.todo;
+import static com.example.demo.domain.comment.entity.QComment.comment;
 
 public class TodoRepositoryImpl implements TodoRepositoryCustom {
 
@@ -45,20 +46,6 @@ public class TodoRepositoryImpl implements TodoRepositoryCustom {
     @Override
     public Page<TodoDto.GetAllTodo> findAllTodosByCreatedDate(Pageable pageable){
 
-//        List<TodoDto.GetAllTodo> content=queryFactory
-//                .select(new QTodoDto_GetAllTodo(todo.todoId,
-//                        todo.title,
-//                        todo.description,
-//                        todo.tags,
-//                        todo.isCompleted,
-//                        todo.createdAt,
-//                        todo.updatedAt))
-//                .where(isDeletedCheck())
-//                .orderBy(todo.createdAt.desc())
-//                .offset(pageable.getOffset())
-//                .limit(pageable.getPageSize())
-//                .fetch();
-
                 List<Todo> content2=queryFactory
                 .selectFrom(todo)
                 .where(isDeletedCheck())
@@ -83,6 +70,19 @@ public class TodoRepositoryImpl implements TodoRepositoryCustom {
         updateClause.where(comment.todo.todoId.eq(todoId))
                 .set(comment.isDeleted, true)
                 .execute();
+    }
+
+    @Override
+    public List<TodoDto.GetAllTodo> findTodoByTItle(String title){
+        List<Todo> content2=queryFactory
+                .selectFrom(todo)
+                .where(isDeletedCheck())
+                .where(todo.title.contains(title))
+                .orderBy(todo.createdAt.desc())
+                .fetch();
+
+        List<TodoDto.GetAllTodo> content=content2.stream().map(c->new TodoDto.GetAllTodo(c.getTodoId(),c.getTitle(),c.getDescription(),c.getTags(),c.isCompleted(),c.getCreatedAt(),c.getUpdatedAt())).collect(Collectors.toList());
+        return content;
     }
 
 }

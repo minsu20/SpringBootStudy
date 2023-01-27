@@ -24,7 +24,8 @@ public class TodoConstansts {
         GET_BYID_TODO_SUCCESS("할일을 검색해 조회했습니다"),
         UPDATE_TODO_SUCCESS("할일을 수정했습니다."),
         COMPLETE_TODO_SUCCESS("할일을 완료했습니다"),
-        DELETE_TODO_SUCCESS("할일을 삭제했습니다");
+        DELETE_TODO_SUCCESS("할일을 삭제했습니다"),
+        SEARCH_BYTITLE_TODO_SUCCESS("할일을 제목으로 검색했습니다");
         private final String message;
     }
 

@@ -12,8 +12,6 @@ public interface TodoMapper {
     @Mapping(target = "title", source = "createRequest.title")
     @Mapping(target="description", source="createRequest.description")
     @Mapping(target="tags", source="createRequest.tags")
-    @Mapping(target="createdAt", expression="java(java.time.LocalDateTime.now())")
-    @Mapping(target="updatedAt", expression="java(java.time.LocalDateTime.now())")
     Todo toEntity(TodoDto.CreateRequest createRequest);
 
     @Mapping(target = "title", source = "title")

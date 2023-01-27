@@ -15,4 +15,5 @@ public interface TodoService {
     TodoDto.CompleteTodo completeById(Integer todoId);
     Todo deleteTodo(Integer todoId);
     PaginationDto<List<TodoDto.GetAllTodo>> getAll(Pageable page);
+    List<TodoDto.GetAllTodo> findByTitle(String title);
 }

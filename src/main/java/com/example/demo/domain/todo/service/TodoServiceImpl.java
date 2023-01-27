@@ -50,8 +50,8 @@ public class TodoServiceImpl implements TodoService{
         if(updateRequest.getTitle()!=null){
             todo.setTitle(updateRequest.getTitle());
         }
-        todo.setUpdatedAt(LocalDateTime.now());
-        return this.todoMapper.toUpdateTodoDto(this.todoRepository.save(todo));
+        this.todoRepository.save(todo);
+        return this.todoMapper.toUpdateTodoDto(this.validateById(todoId));
     }
 
     @Override
@@ -74,6 +74,12 @@ public class TodoServiceImpl implements TodoService{
         Page<TodoDto.GetAllTodo> page=this.todoRepository.findAllTodosByCreatedDate(pageable);
         List<TodoDto.GetAllTodo> data=page.get().collect(Collectors.toList());
         return PaginationDto.of(page,data);
+    }
+
+    @Override
+    public List<TodoDto.GetAllTodo> findByTitle(String title){
+        List<TodoDto.GetAllTodo> search=this.todoRepository.findTodoByTItle(title);
+        return search;
     }
 
     private Todo validateById(Integer todoId){
