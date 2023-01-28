@@ -43,7 +43,7 @@ public class TodoControllerTest extends BaseWebMvcTest {
                 .param("tags", String.valueOf((List.of("tags1", "tags2")))));
 
         perform.andExpect(status().isCreated())
-                .andExpect(jsonPath("$.message").value(containsString(TodoConstansts.EBoardResponseMessage.CREATE_TODO_SUCCESS.getMessage())))
+                .andExpect(jsonPath("$.message").value(containsString(TodoConstansts.ETododResponseMessage.CREATE_TODO_SUCCESS.getMessage())))
                 .andExpect(jsonPath("$.data.todoId").value(is(1)))
                 .andExpect(jsonPath("$.data.title").value(is("todoTitle")))
                 .andExpect(jsonPath("$.data.description").value(is("description")))
