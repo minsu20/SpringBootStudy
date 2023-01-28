@@ -18,7 +18,7 @@ public class TodoConstansts {
 
     @Getter
     @RequiredArgsConstructor
-    public enum EBoardResponseMessage{
+    public enum ETododResponseMessage{
         CREATE_TODO_SUCCESS("할일을 등록했습니다."),
         GET_ALL_TODO_SUCCESS("할일을 작성 순으로 조회했습니다."),
         GET_BYID_TODO_SUCCESS("할일을 검색해 조회했습니다"),
@@ -31,7 +31,7 @@ public class TodoConstansts {
 
     @Getter
     @RequiredArgsConstructor
-    public enum BoardExceptionList {
+    public enum TodoExceptionList {
         NOT_FOUND_TODO("T0001", HttpStatus.NOT_FOUND, "해당 TodoIDd로 TODO를 찾을 수 없습니다.");
         private final String errorCode;
         private final HttpStatus httpStatus;
