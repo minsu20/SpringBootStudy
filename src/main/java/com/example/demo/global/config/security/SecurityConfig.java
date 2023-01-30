@@ -1,4 +1,4 @@
-package com.example.demo.global.config;
+package com.example.demo.global.config.security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -31,7 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/v3/api-docs").permitAll()
                 .antMatchers("/image/**").permitAll()
                 .antMatchers("/user/**").permitAll()
-                .antMatchers("/todos/**").permitAll()
+//                .antMatchers("/todos/**").permitAll()
                 .anyRequest().authenticated();
     }
 
