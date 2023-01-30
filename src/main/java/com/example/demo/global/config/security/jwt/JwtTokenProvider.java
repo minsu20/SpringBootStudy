@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class JwtTokenProvider  implements InitializingBean {
+public class JwtTokenProvider implements InitializingBean {
     private static final String AUTHORITIES_KEY = "auth";
 
     @Value("${jwt.secret}")
@@ -92,7 +92,7 @@ public class JwtTokenProvider  implements InitializingBean {
         return new UsernamePasswordAuthenticationToken(new UserDetailsImpl(user), accessToken, authorities);
     }
 
-    public boolean validateToken(String token){
+    public boolean validateToken(String token) {
         try {
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
             return true;
@@ -111,7 +111,7 @@ public class JwtTokenProvider  implements InitializingBean {
         }
     }
 
-    public boolean validateRefreshToken(String token){
+    public boolean validateRefreshToken(String token) {
         try {
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
             return true;

@@ -8,6 +8,7 @@ import java.util.Optional;
 
 public interface CommentRepositoryCustom {
     Optional<Comment> findNotDeletedByCommentId(Integer commentId);
+
     List<CommentDto.GetResponse> getCommentByTodoId(Integer todoId);
 
 }

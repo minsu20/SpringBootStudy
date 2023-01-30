@@ -10,7 +10,10 @@ import java.util.Optional;
 
 public interface TodoRepositoryCustom {
     Optional<Todo> findNotDeletedByTodoId(Integer todoId);
+
     Page<TodoDto.GetAllTodo> findAllTodosByCreatedDate(Pageable pageable);
+
     void deleteCommentByTodo(Integer todoId);
+
     List<TodoDto.GetAllTodo> findTodoByTItle(String title);
 }

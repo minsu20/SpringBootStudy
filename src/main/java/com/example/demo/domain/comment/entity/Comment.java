@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 
@@ -25,15 +24,15 @@ public class Comment extends BaseTimeEntity {
     private boolean isDeleted;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="todo_id")
+    @JoinColumn(name = "todo_id")
     private Todo todo;
 
     /**
      * 연관관계 매핑
      */
 
-    public void setTodo(Todo todo){
-        this.todo=todo;
+    public void setTodo(Todo todo) {
+        this.todo = todo;
         todo.getComments().add(this);
     }
 }
