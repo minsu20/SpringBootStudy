@@ -1,10 +1,13 @@
 package com.example.demo.domain.todo.controller;
 
+import com.example.demo.domain.todo.constant.TodoConstansts;
+import com.example.demo.domain.todo.constant.TodoConstansts.ETodoController;
+import com.example.demo.domain.todo.constant.TodoConstansts.ETododResponseMessage;
 import com.example.demo.domain.todo.dto.TodoDto;
+import com.example.demo.domain.todo.dto.TodoDto.*;
 import com.example.demo.domain.todo.service.TodoService;
 import com.example.demo.global.dto.PaginationDto;
 import com.example.demo.global.dto.ResponseDto;
-import com.example.demo.domain.todo.constant.TodoConstansts;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -27,33 +30,33 @@ public class TodoController {
 
     @ApiOperation(value = "할일 작성", notes = "할일을 작성합니다.")
     @PostMapping
-    public ResponseEntity<ResponseDto<TodoDto.CreateResponse>> createTodo(@Valid @ModelAttribute TodoDto.CreateRequest createRequest){
-        TodoDto.CreateResponse createResponse=this.todoService.createTodo(createRequest);
+    public ResponseEntity<ResponseDto<CreateResponse>> createTodo(@Valid @ModelAttribute CreateRequest createRequest){
+        CreateResponse createResponse=this.todoService.createTodo(createRequest);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path(TodoConstansts.ETodoController.LOCATION_ID_PATH.getValue())
+                .path(ETodoController.LOCATION_ID_PATH.getValue())
                 .buildAndExpand(createResponse.getTodoId())
                 .toUri();
-        return ResponseEntity.created(location).body(ResponseDto.create(TodoConstansts.ETododResponseMessage.CREATE_TODO_SUCCESS.getMessage(), createResponse));
+        return ResponseEntity.created(location).body(ResponseDto.create(ETododResponseMessage.CREATE_TODO_SUCCESS.getMessage(), createResponse));
     }
 
 
     @ApiOperation(value = "할일 읽기", notes = "할일을 읽습니다")
     @GetMapping("/{todoId}")
-    public ResponseEntity<ResponseDto<TodoDto.GetTodo>> getTodo(@PathVariable Integer todoId){
-        return ResponseEntity.ok(ResponseDto.create(TodoConstansts.ETododResponseMessage.GET_BYID_TODO_SUCCESS.getMessage(),this.todoService.getById(todoId)));
+    public ResponseEntity<ResponseDto<GetTodo>> getTodo(@PathVariable Integer todoId){
+        return ResponseEntity.ok(ResponseDto.create(ETododResponseMessage.GET_BYID_TODO_SUCCESS.getMessage(),this.todoService.getById(todoId)));
     }
 
 
     @ApiOperation(value="할일 수정", notes="할일을 수정합니다")
     @PutMapping("/{todoId}")
-    public ResponseEntity<ResponseDto<TodoDto.UpdateResponse>> updateTodo(@PathVariable Integer todoId, @ModelAttribute TodoDto.UpdateRequest updateRequest){
-        return ResponseEntity.ok(ResponseDto.create(TodoConstansts.ETododResponseMessage.UPDATE_TODO_SUCCESS.getMessage(),this.todoService.updateById(todoId, updateRequest)));
+    public ResponseEntity<ResponseDto<UpdateResponse>> updateTodo(@PathVariable Integer todoId, @ModelAttribute UpdateRequest updateRequest){
+        return ResponseEntity.ok(ResponseDto.create(ETododResponseMessage.UPDATE_TODO_SUCCESS.getMessage(),this.todoService.updateById(todoId, updateRequest)));
     }
 
     @ApiOperation(value="할일 완료", notes="할일을 완료합니다")
     @PutMapping("/{todoId}/complete")
-    public ResponseEntity<ResponseDto<TodoDto.CompleteTodo>> completeTodo(@PathVariable Integer todoId){
-        return ResponseEntity.ok(ResponseDto.create(TodoConstansts.ETododResponseMessage.COMPLETE_TODO_SUCCESS.getMessage(),this.todoService.completeById(todoId)));
+    public ResponseEntity<ResponseDto<CompleteTodo>> completeTodo(@PathVariable Integer todoId){
+        return ResponseEntity.ok(ResponseDto.create(ETododResponseMessage.COMPLETE_TODO_SUCCESS.getMessage(),this.todoService.completeById(todoId)));
     }
 
 
@@ -61,19 +64,19 @@ public class TodoController {
     @DeleteMapping("/{todoId}")
     public ResponseEntity<ResponseDto> deleteTodo(@PathVariable Integer todoId){
        this.todoService.deleteTodo(todoId);
-       return ResponseEntity.ok(ResponseDto.create(TodoConstansts.ETododResponseMessage.DELETE_TODO_SUCCESS.getMessage()));
+       return ResponseEntity.ok(ResponseDto.create(ETododResponseMessage.DELETE_TODO_SUCCESS.getMessage()));
     }
 
     @ApiOperation(value = "할일을 작성 순으로 조회", notes = "할일을 작성 시간순으로 조회합니다")
     @GetMapping
-    public ResponseEntity<ResponseDto<PaginationDto<List<TodoDto.GetAllTodo>>>> getTodo(@PageableDefault Pageable pageable){
-        return ResponseEntity.ok(ResponseDto.create(TodoConstansts.ETododResponseMessage.GET_ALL_TODO_SUCCESS.getMessage(),this.todoService.getAll(pageable)));
+    public ResponseEntity<ResponseDto<PaginationDto<List<GetAllTodo>>>> getTodo(@PageableDefault Pageable pageable){
+        return ResponseEntity.ok(ResponseDto.create(ETododResponseMessage.GET_ALL_TODO_SUCCESS.getMessage(),this.todoService.getAll(pageable)));
     }
 
     @ApiOperation(value="할일을 제목으로 검색", notes="할일을 제목으로 검색합니다")
     @GetMapping("search/{title}")
-    public ResponseEntity<ResponseDto<List<TodoDto.GetAllTodo>>> getByTitle(@PathVariable String title){
-        return ResponseEntity.ok(ResponseDto.create(TodoConstansts.ETododResponseMessage.SEARCH_BYTITLE_TODO_SUCCESS.getMessage(),this.todoService.findByTitle(title)));
+    public ResponseEntity<ResponseDto<List<GetAllTodo>>> getByTitle(@PathVariable String title){
+        return ResponseEntity.ok(ResponseDto.create(ETododResponseMessage.SEARCH_BYTITLE_TODO_SUCCESS.getMessage(),this.todoService.findByTitle(title)));
     }
 
 

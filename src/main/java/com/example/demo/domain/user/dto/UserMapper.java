@@ -8,6 +8,6 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface UserMapper {
     @Mapping(target = "email", source = "email")
-    @Mapping(target="password", source="password")
+    @Mapping(target = "password", source = "password")
     User toEntity(UserDto.SignupRequest signupRequest);
 }

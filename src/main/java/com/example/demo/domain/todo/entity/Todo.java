@@ -1,14 +1,11 @@
 package com.example.demo.domain.todo.entity;
 
 
-import javax.persistence.*;
-
 import com.example.demo.domain.comment.entity.Comment;
 import com.example.demo.global.entity.BaseTimeEntity;
 import lombok.*;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.time.LocalDateTime;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,15 +30,15 @@ public class Todo extends BaseTimeEntity {
     private boolean isDeleted;
 
     @ElementCollection
-    private List<String> tags=new ArrayList<>();
+    private List<String> tags = new ArrayList<>();
 
-    @OneToMany(mappedBy="todo")
-    private List<Comment>comments= new ArrayList<>();
+    @OneToMany(mappedBy = "todo")
+    private List<Comment> comments = new ArrayList<>();
 
     @Builder
-    public Todo(String title, String description){
-        this.title=title;
-        this.description=description;
+    public Todo(String title, String description) {
+        this.title = title;
+        this.description = description;
     }
 
 }

@@ -20,20 +20,20 @@ public class CommentRepositoryImpl implements CommentRepositoryCustom {
     }
 
     @Override
-    public List<CommentDto.GetResponse> getCommentByTodoId(Integer todoId){
+    public List<CommentDto.GetResponse> getCommentByTodoId(Integer todoId) {
         return queryFactory.select(new QCommentDto_GetResponse(comment.commentId, comment.content, comment.createdAt, comment.updatedAt)).from(comment)
-        .where(comment.todo.todoId.eq(todoId)).fetch();
+                .where(comment.todo.todoId.eq(todoId)).fetch();
     }
 
     @Override
-    public Optional<Comment> findNotDeletedByCommentId(Integer commentId){
+    public Optional<Comment> findNotDeletedByCommentId(Integer commentId) {
         return Optional.ofNullable(queryFactory.selectFrom(comment)
                 .where(comment.commentId.eq(commentId),
                         isDeletedCheck())
                 .fetchFirst());
     }
 
-    private BooleanExpression isDeletedCheck(){
+    private BooleanExpression isDeletedCheck() {
         return comment.isDeleted.eq(false);
     }
 }

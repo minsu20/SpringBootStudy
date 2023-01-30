@@ -15,48 +15,48 @@ public abstract class UserDto {
     @Getter
     @AllArgsConstructor
     @Builder
-    @ApiModel(description="회원가입을 위한 요청객체")
-    public static class SignupRequest{
+    @ApiModel(description = "회원가입을 위한 요청객체")
+    public static class SignupRequest {
         @NotBlank(message = "이메일을 입력해주세요")
-        @ApiModelProperty(notes="이메일을 입력해주세요")
+        @ApiModelProperty(notes = "이메일을 입력해주세요")
         private String email;
 
         @NotBlank(message = "비밀번호를 입력해주세요")
-        @ApiModelProperty(notes="비밀번호를 입력해주세요")
+        @ApiModelProperty(notes = "비밀번호를 입력해주세요")
         private String password;
 
     }
 
     @Getter
     @Builder
-    @ApiModel(description="회원가입을 위한 응답객체")
-    public static class SignupResponse{
+    @ApiModel(description = "회원가입을 위한 응답객체")
+    public static class SignupResponse {
         private String email;
 
         @QueryProjection
-        public SignupResponse(String email){
-            this.email=email;
+        public SignupResponse(String email) {
+            this.email = email;
         }
     }
 
     @Getter
     @AllArgsConstructor
     @Builder
-    @ApiModel(description="로그인을 위한 요청객체")
-    public static class LoginRequest{
+    @ApiModel(description = "로그인을 위한 요청객체")
+    public static class LoginRequest {
         @NotBlank(message = "이메일을 입력해주세요")
-        @ApiModelProperty(notes="이메일을 입력해주세요")
+        @ApiModelProperty(notes = "이메일을 입력해주세요")
         private String email;
 
         @NotBlank(message = "비밀번호를 입력해주세요")
-        @ApiModelProperty(notes="비밀번호를 입력해주세요")
+        @ApiModelProperty(notes = "비밀번호를 입력해주세요")
         private String password;
     }
 
     @Getter
     @Builder
-    @ApiModel(description="로그인을 위한 응답객체")
-    public static class LoginResponse{
+    @ApiModel(description = "로그인을 위한 응답객체")
+    public static class LoginResponse {
         private String accessToken;
         private String refreshToken;
 

@@ -1,9 +1,5 @@
 package com.example.demo.domain.user.service;
 
-import com.example.demo.domain.todo.entity.Todo;
-import com.example.demo.domain.todo.exception.NotFoundTodoException;
-import com.example.demo.domain.user.constant.UserConstants;
-import com.example.demo.domain.user.constant.UserConstants.EToken;
 import com.example.demo.domain.user.dto.UserDto;
 import com.example.demo.domain.user.dto.UserDto.LoginRequest;
 import com.example.demo.domain.user.dto.UserDto.LoginResponse;
@@ -14,12 +10,10 @@ import com.example.demo.domain.user.exception.NotFoundEmailException;
 import com.example.demo.domain.user.exception.OverlapUserException;
 import com.example.demo.domain.user.repository.UserRepository;
 import com.example.demo.global.config.security.jwt.JwtTokenProvider;
-import com.example.demo.global.config.security.jwt.UserDetailsImpl;
 import com.example.demo.global.dto.TokenInfoResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
@@ -27,14 +21,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.concurrent.TimeUnit;
-
 import static com.example.demo.domain.user.constant.UserConstants.Role.ROLE_USER;
 
 @RequiredArgsConstructor
 @Service
 @Slf4j
-public class UserServiceImpl implements  UserService{
+public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
@@ -44,16 +36,16 @@ public class UserServiceImpl implements  UserService{
     private final RedisTemplate redisTemplate;
 
     @Override
-    public SignupResponse singup(UserDto.SignupRequest signupRequest){
+    public SignupResponse singup(UserDto.SignupRequest signupRequest) {
         this.validateOverlap(signupRequest.getEmail());
-        User user=userMapper.toEntity(signupRequest);
+        User user = userMapper.toEntity(signupRequest);
         user.encryptPassword(passwordEncoder);
         user.setRole(ROLE_USER);
         this.userRepository.save(user);
         return new SignupResponse(signupRequest.getEmail());
     }
 
-    private void validateOverlap(String email){
+    private void validateOverlap(String email) {
         userRepository.findByEmail(email)
                 .ifPresent((m -> {
                     throw new OverlapUserException();
@@ -61,26 +53,22 @@ public class UserServiceImpl implements  UserService{
     }
 
     @Override
-    public LoginResponse login(LoginRequest loginRequest){
-        TokenInfoResponse tokenInfoResponse=this.validateLogin(loginRequest);
+    public LoginResponse login(LoginRequest loginRequest) {
+        TokenInfoResponse tokenInfoResponse = this.validateLogin(loginRequest);
         return LoginResponse.from(tokenInfoResponse);
     }
 
-    public TokenInfoResponse validateLogin(LoginRequest loginRequest){
-        log.info("a");
+    public TokenInfoResponse validateLogin(LoginRequest loginRequest) {
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword());
-        log.info("a");
         Authentication authentication = this.authenticationManagerBuilder.getObject().authenticate(authenticationToken);
-        log.info("a");
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        log.info("a");
         TokenInfoResponse tokenInfoResponse = this.tokenProvider.createToken(authentication);
         return tokenInfoResponse;
     }
 
     @Override
-    public User validateEmail(String email){
+    public User validateEmail(String email) {
         return this.userRepository.findByEmail(email).orElseThrow(NotFoundEmailException::new);
     }
 }
