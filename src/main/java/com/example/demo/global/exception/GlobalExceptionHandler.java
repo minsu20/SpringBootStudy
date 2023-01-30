@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.validation.ConstraintViolationException;
+import javax.validation.Valid;
 
 import static java.util.Objects.requireNonNull;
 
@@ -57,7 +58,7 @@ public class GlobalExceptionHandler {
         );
         return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(new ApiErrorResponse(INTERNAL_SERVER_ERROR_CODE, "데이터 접근 에러가 발생했습니다."));
+                .body(new ApiErrorResponse(INTERNAL_SERVER_ERROR_CODE, "데이터 접근 에러가 발생했습니다. "+e.getMessage()));
     }
 
     @ExceptionHandler(RuntimeException.class)
@@ -70,7 +71,7 @@ public class GlobalExceptionHandler {
         );
         return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(new ApiErrorResponse(INTERNAL_SERVER_ERROR_CODE, "런타임 에러가 발생했습니다."));
+                .body(new ApiErrorResponse(INTERNAL_SERVER_ERROR_CODE, "런타임 에러가 발생했습니다. "+e.getMessage()));
     }
 
 

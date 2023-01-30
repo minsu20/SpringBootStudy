@@ -16,9 +16,9 @@ public class UserConstants {
 
     @Getter
     @RequiredArgsConstructor
-    public enum BoardExceptionList {
-        NOT_FOUND_LOGIN_ID("U0001", HttpStatus.NOT_FOUND, "해당 loginId로 User를 찾을 수 없습니다."),
-        NOT_FOUND_EMAIL("U0002", HttpStatus.NOT_FOUND, "해당 email로 User를 찾을 수 없습니다."),
+    public enum UserExceptionList {
+        NOT_FOUND_EMAIL("U0001", HttpStatus.NOT_FOUND, "해당 email을 가진 유저가 존재하지 않습니다"),
+        NOT_FOUND_PASSWORD("U0002", HttpStatus.NOT_FOUND, "비밀번호가 잘못되었습니다."),
         OVERLAP_USER("U0003", HttpStatus.BAD_REQUEST, "이미 존재하는 회원입니다");
 
         private final String errorCode;
@@ -29,5 +29,12 @@ public class UserConstants {
     @Getter
     public enum Role {
         ROLE_USER, ROLE_ADMIN
+    }
+
+    @Getter
+    @RequiredArgsConstructor
+    public enum EToken{
+        eRefreshToken("RT:");
+        private final String message;
     }
 }

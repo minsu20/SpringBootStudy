@@ -1,12 +1,10 @@
 package com.example.demo.domain.user.entity;
 
+import com.example.demo.domain.user.constant.UserConstants;
 import lombok.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @NoArgsConstructor
@@ -19,13 +17,15 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer userId;
 
-    private String userName;
-
     private String email;
 
     private String password;
 
+    @Enumerated(EnumType.STRING)
+    private UserConstants.Role role;
+
     public void encryptPassword(PasswordEncoder passwordEncoder) {
         password = passwordEncoder.encode(password);
     }
+
 }

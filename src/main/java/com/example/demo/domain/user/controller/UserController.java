@@ -3,6 +3,10 @@ package com.example.demo.domain.user.controller;
 import com.example.demo.domain.todo.service.TodoService;
 import com.example.demo.domain.user.constant.UserConstants;
 import com.example.demo.domain.user.dto.UserDto;
+import com.example.demo.domain.user.dto.UserDto.LoginRequest;
+import com.example.demo.domain.user.dto.UserDto.LoginResponse;
+import com.example.demo.domain.user.dto.UserDto.SignupRequest;
+import com.example.demo.domain.user.dto.UserDto.SignupResponse;
 import com.example.demo.domain.user.service.UserService;
 import com.example.demo.global.dto.ResponseDto;
 import io.swagger.annotations.Api;
@@ -24,8 +28,14 @@ public class UserController {
     private final UserService userService;
 
     @ApiOperation(value = "회원가입", notes = "회원가입을 합니다.")
-    @PostMapping
-    public ResponseEntity<ResponseDto<UserDto.SignupResponse>> singupUser(@Valid @ModelAttribute UserDto.SignupRequest signupRequest){
+    @PostMapping("/signup")
+    public ResponseEntity<ResponseDto<SignupResponse>> singupUser(@Valid @ModelAttribute SignupRequest signupRequest){
         return ResponseEntity.ok(ResponseDto.create(UserConstants.EBoardResponseMessage.SIGNUP_SUCCESS.getMessage(),this.userService.singup(signupRequest)));
+    }
+
+    @ApiOperation(value="로그인", notes="로그인을 합니다.")
+    @PostMapping("/login")
+    public ResponseEntity<ResponseDto<LoginResponse>> loginUser(@Valid @ModelAttribute LoginRequest loginRequest){
+        return ResponseEntity.ok(ResponseDto.create(UserConstants.EBoardResponseMessage.LOGIN_SUCCESS.getMessage(),this.userService.login(loginRequest)));
     }
 }

@@ -9,6 +9,5 @@ import org.mapstruct.Mapping;
 public interface UserMapper {
     @Mapping(target = "email", source = "email")
     @Mapping(target="password", source="password")
-    @Mapping(target="userName", source="userName")
     User toEntity(UserDto.SignupRequest signupRequest);
 }

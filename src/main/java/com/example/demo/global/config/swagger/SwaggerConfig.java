@@ -1,4 +1,4 @@
-package com.example.demo.global.config;
+package com.example.demo.global.config.swagger;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

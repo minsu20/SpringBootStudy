@@ -1,9 +1,10 @@
 package com.example.demo.domain.user.repository;
 
 import com.example.demo.domain.user.dto.UserDto;
+import com.example.demo.domain.user.entity.User;
 
 import java.util.Optional;
 
 public interface UserRepositoryCustom {
-    Optional<UserDto.SignupResponse> findByEmail(String email);
+    Optional<User> findByEmail(String email);
 }
