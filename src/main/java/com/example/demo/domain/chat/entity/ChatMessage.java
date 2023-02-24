@@ -13,17 +13,12 @@ import javax.persistence.*;
 @Builder
 public class ChatMessage {
 
-    public enum MessageType {
-        ENTER, TALK
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private MessageType type;
     //채팅방 ID
-    private Long roomId;
+    private Integer roomId;
     //보내는 사람
     private String sender;
     //내용
