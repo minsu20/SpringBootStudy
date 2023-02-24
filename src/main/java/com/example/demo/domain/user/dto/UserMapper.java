@@ -7,7 +7,7 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {
-    @Mapping(target = "email", source = "email")
-    @Mapping(target = "password", source = "password")
+    @Mapping(target = "email", source = "signupRequest.email")
+    @Mapping(target = "password", source = "signupRequest.password")
     User toEntity(UserDto.SignupRequest signupRequest);
 }
