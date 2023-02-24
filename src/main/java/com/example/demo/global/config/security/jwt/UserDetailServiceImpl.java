@@ -18,7 +18,6 @@ public class UserDetailServiceImpl implements UserDetailsService {
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        System.out.println("loadUserByUserName");
         return new UserDetailsImpl(this.userService.validateEmail(username));
     }
 }
